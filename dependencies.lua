@@ -45,3 +45,8 @@ gImages = {
     ['mom2'] = love.graphics.newImage('img/Mom2.png'),
     ['mom3'] = love.graphics.newImage('img/Mom3.png')
 }
+
+gSounds = {
+    ['playball'] = love.audio.newSource('sound/PlayBall.wav', 'static'),
+    ['loss'] = love.audio.newSource('sound/Loss.wav', 'static')
+}

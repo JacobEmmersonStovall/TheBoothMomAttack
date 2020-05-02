@@ -34,6 +34,7 @@ function PlayState:update(dt)
 
     --Check game over
     if self.mom:isCollision(self.bill) then
+        love.audio.play(gSounds["loss"])
         gStateMachine:change('gameover', { ['score'] = self.score })
     end
 
