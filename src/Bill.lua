@@ -7,12 +7,12 @@ local billMovingAnimation = Animation {
     interval = 0.2
 }
 
-Bill = Class{}
+Bill = Class{__includes = Collidable}
 
-function Bill:init()
+function Bill:init(x, y)
     self.currentAnimation = billIdleAnimation
-    self.y = VIRTUAL_HEIGHT - 16
-    self.x = VIRTUAL_WIDTH / 2
+    self.y = y
+    self.x = x
     self.width = 8
     self.height = 8
     self.speed = 60
@@ -58,16 +58,6 @@ function Bill:update(dt)
     if self.y + self.height > VIRTUAL_HEIGHT then
         self.y = VIRTUAL_HEIGHT - self.height
     end
-end
-
-function Bill:isCollision(target)
-    if(self.x > target.x + target.width or target.x > self.x + self.width) then
-        return false
-    end
-    if(self.y > target.y + target.height or target.y > self.y + self.height) then
-        return false
-    end
-    return true
 end
 
 function Bill:render()

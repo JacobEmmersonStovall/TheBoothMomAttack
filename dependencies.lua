@@ -4,8 +4,11 @@ push = require 'lib/push'
 require 'lib/Animation'
 
 --Entities
+require 'src/Collidable'
 require 'src/Bill'
 require 'src/BaseballPowerup'
+require 'src/Tile'
+require 'src/Hole'
 
 --State Machine
 require 'src/StateMachine'
@@ -27,6 +30,7 @@ gImages = {
     ['whip'] = love.graphics.newImage('img/Whip.png'),
     ['woodfloor'] = love.graphics.newImage('img/WoodFloor.png'),
     ['title'] = love.graphics.newImage('img/Title.png'),
+    ['hole'] = love.graphics.newImage('img/Hole.png'),
 
     --Bill character images
     ['bill1'] = love.graphics.newImage('img/BillBlock1.png'),

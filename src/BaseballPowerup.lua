@@ -1,4 +1,4 @@
-BaseballPowerup = Class{}
+BaseballPowerup = Class{__includes = Collidable}
 
 function BaseballPowerup:init(x, y)
     self.x = x
