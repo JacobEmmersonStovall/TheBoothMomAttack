@@ -15,7 +15,7 @@ function Bill:init()
     self.x = VIRTUAL_WIDTH / 2
     self.width = 8
     self.height = 8
-    self.speed = 200
+    self.speed = 60
 end
 
 function Bill:update(dt)
