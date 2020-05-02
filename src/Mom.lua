@@ -22,8 +22,65 @@ function Mom:init(x, y)
     self.momChangeMovementTimer = 1
 end
 
+function Mom:seesTarget(target)
+    if target.x > self.x + 50 or self.x > target.x + 50 then
+        return false
+    end
+    if target.y > self.y + 50 or self.y > target.y + 50 then
+        return false
+    end
+    return true
+end
 
-function Mom:update(dt)
+function Mom:determinedUpdate(dt, target)
+    self.currentAnimation:update(dt)
+    if target.x > self.x then
+        self.x = self.x + (self.speed * dt * self.speedMultiplier)
+    elseif target.x < self.x then
+        self.x = self.x - (self.speed * dt * self.speedMultiplier)
+    end
+    if target.y > self.y then
+        self.y = self.y + (self.speed * dt * self.speedMultiplier)
+    elseif target.y < self.y then
+        self.y = self.y - (self.speed * dt * self.speedMultiplier)
+    end
+    self.momDidSomething = true
+    self.currentAnimation = momMovingAnimation
+    if self.x < 0 then
+        self.x = 0
+    end
+    if self.y < 0 then
+        self.y = 0
+    end
+    if self.x + self.width > VIRTUAL_WIDTH then
+        self.x = VIRTUAL_WIDTH - self.width
+    end
+    if self.y + self.height > VIRTUAL_HEIGHT then
+        self.y = VIRTUAL_HEIGHT - self.height
+    end
+end
+
+function Mom:nutmegUpdate(dt)
+    self.currentAnimation:update(dt)
+    self.momDidSomething = false
+    self.currentAnimation = momIdleAnimation
+    -- Boundary check
+    if self.x < 0 then
+        self.x = 0
+    end
+    if self.y < 0 then
+        self.y = 0
+    end
+    if self.x + self.width > VIRTUAL_WIDTH then
+        self.x = VIRTUAL_WIDTH - self.width
+    end
+    if self.y + self.height > VIRTUAL_HEIGHT then
+        self.y = VIRTUAL_HEIGHT - self.height
+    end
+end
+
+
+function Mom:randomUpdate(dt)
     self.currentAnimation:update(dt)
 
     --Checking inputs

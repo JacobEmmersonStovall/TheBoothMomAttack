@@ -18,6 +18,7 @@ require 'src/StateMachine'
 require 'state/BaseState'
 require 'state/PlayState'
 require 'state/TitleState'
+require 'state/GameOverState'
 
 -- physical screen dimensions
 WINDOW_WIDTH = 1280

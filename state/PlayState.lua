@@ -32,6 +32,11 @@ end
 
 function PlayState:update(dt)
 
+    --Check game over
+    if self.mom:isCollision(self.bill) then
+        gStateMachine:change('gameover', { ['score'] = self.score })
+    end
+
     --Score multiplier timer handle
     self.multiplierTimer = self.multiplierTimer - dt
     if self.multiplierTimer <= 0 then
@@ -54,7 +59,7 @@ function PlayState:update(dt)
                 self.mom.speed = self.mom.speed + 2
             elseif powerup.type == 'whip' then
                 self.scoreMultiplier = self.scoreMultiplier * 2
-                self.mom.speedMultiplier = self.mom.speedMultiplier + 1
+                self.mom.speedMultiplier = self.mom.speedMultiplier + 0.3
                 self.multiplierTimer = self.multiplierTimer + 10
             else
                 self.nutmegTimer = self.nutmegTimer + 10
@@ -110,7 +115,14 @@ function PlayState:update(dt)
 
     previousMomx = self.mom.x
     previousMomy = self.mom.y
-    self.mom:update(dt)
+    if self.nutmegTimer > 0 then
+        self.mom:nutmegUpdate(dt)
+    elseif self.mom:seesTarget(self.bill) then
+        self.mom:determinedUpdate(dt, self.bill)
+    else
+        self.mom:randomUpdate(dt)
+    end
+    
     self.bill:update(dt)
     --Make sure they are not colliding with a hole
     for k, floor in pairs(self.floors) do
