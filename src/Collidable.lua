@@ -1,4 +1,4 @@
-Collidable = Class{__includes = Collidable}
+Collidable = Class{}
 
 function Collidable:isCollision(target)
     if(self.x > target.x + target.width - 1 or target.x > self.x + self.width - 1) then

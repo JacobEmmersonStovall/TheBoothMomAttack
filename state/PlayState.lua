@@ -3,6 +3,7 @@ PlayState = Class{__includes = BaseState}
 function PlayState:init()
     -- Character spawn
     self.bill = Bill(8,8)
+    self.mom = Mom(240, 224)
     --Score Info
     self.score = 0
     self.scoreMultiplier = 1
@@ -36,6 +37,7 @@ function PlayState:update(dt)
     if self.multiplierTimer <= 0 then
         self.multiplierTimer = 0
         self.scoreMultiplier = 1
+        self.mom.speedMultiplier = 1
     end
 
     --Nutmeg timer
@@ -49,8 +51,10 @@ function PlayState:update(dt)
         if not powerup.collected and self.bill:isCollision(powerup) then
             if powerup.type == 'baseball' then
                 self.score = self.score + (self.scoreMultiplier * 100)
+                self.mom.speed = self.mom.speed + 2
             elseif powerup.type == 'whip' then
                 self.scoreMultiplier = self.scoreMultiplier * 2
+                self.mom.speedMultiplier = self.mom.speedMultiplier + 1
                 self.multiplierTimer = self.multiplierTimer + 10
             else
                 self.nutmegTimer = self.nutmegTimer + 10
@@ -103,12 +107,20 @@ function PlayState:update(dt)
     --Update characters
     previousBillx = self.bill.x
     previousBilly = self.bill.y
+
+    previousMomx = self.mom.x
+    previousMomy = self.mom.y
+    self.mom:update(dt)
     self.bill:update(dt)
     --Make sure they are not colliding with a hole
     for k, floor in pairs(self.floors) do
         if floor.type == 'hole' and self.bill:isCollision(floor) then
             self.bill.x = previousBillx
             self.bill.y = previousBilly
+        end
+        if floor.type == 'hole' and self.mom:isCollision(floor) then
+            self.mom.x = previousMomx
+            self.mom.y = previousMomy
         end
     end
 end
@@ -132,5 +144,6 @@ function PlayState:render()
     love.graphics.print('Score: ' .. tostring(self.score), 8, 8)
     love.graphics.print('Multiplier: ' .. tostring(self.scoreMultiplier), 8, 24)
 
+    self.mom:render()
     self.bill:render()
 end

@@ -6,6 +6,7 @@ require 'lib/Animation'
 --Entities
 require 'src/Collidable'
 require 'src/Bill'
+require 'src/Mom'
 require 'src/BaseballPowerup'
 require 'src/WhipPowerup'
 require 'src/NutmegPowerup'
@@ -37,5 +38,9 @@ gImages = {
     --Bill character images
     ['bill1'] = love.graphics.newImage('img/BillBlock1.png'),
     ['bill2'] = love.graphics.newImage('img/BillBlock2.png'),
-    ['bill3'] = love.graphics.newImage('img/BillBlock3.png')
+    ['bill3'] = love.graphics.newImage('img/BillBlock3.png'),
+
+    ['mom1'] = love.graphics.newImage('img/Mom1.png'),
+    ['mom2'] = love.graphics.newImage('img/Mom2.png'),
+    ['mom3'] = love.graphics.newImage('img/Mom3.png')
 }
