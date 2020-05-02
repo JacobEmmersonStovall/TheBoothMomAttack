@@ -7,6 +7,8 @@ require 'lib/Animation'
 require 'src/Collidable'
 require 'src/Bill'
 require 'src/BaseballPowerup'
+require 'src/WhipPowerup'
+require 'src/NutmegPowerup'
 require 'src/Tile'
 require 'src/Hole'
 

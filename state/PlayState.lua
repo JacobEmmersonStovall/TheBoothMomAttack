@@ -6,6 +6,9 @@ function PlayState:init()
     --Score Info
     self.score = 0
     self.scoreMultiplier = 1
+    self.multiplierTimer = 0
+    --Nutmeg Timer
+    self.nutmegTimer = 0
     --Powerup Info
     self.powerupSpawnTimer = 0
     self.powerupSpawnThreshold = math.random(1,5)
@@ -28,11 +31,29 @@ end
 
 function PlayState:update(dt)
 
+    --Score multiplier timer handle
+    self.multiplierTimer = self.multiplierTimer - dt
+    if self.multiplierTimer <= 0 then
+        self.multiplierTimer = 0
+        self.scoreMultiplier = 1
+    end
+
+    --Nutmeg timer
+    self.nutmegTimer = self.nutmegTimer - dt
+    if self.nutmegTimer <= 0 then
+        self.nutmegTimer = 0
+    end
+
     for k, powerup in pairs(self.currentPowerups) do
         powerup:update(dt)
         if not powerup.collected and self.bill:isCollision(powerup) then
             if powerup.type == 'baseball' then
                 self.score = self.score + (self.scoreMultiplier * 100)
+            elseif powerup.type == 'whip' then
+                self.scoreMultiplier = self.scoreMultiplier * 2
+                self.multiplierTimer = self.multiplierTimer + 10
+            else
+                self.nutmegTimer = self.nutmegTimer + 10
             end
             powerup.collected = true
         end
@@ -46,10 +67,16 @@ function PlayState:update(dt)
 
         newPowerupX = math.random(0, 31) * 8
         newPowerupY = math.random(0, 29) * 8
-        
+        newPowerupType = math.random(1, 20)
         --Check spawn doesn't collide with holes or objects
         spawnIsOkay = true
-        powerupToSpawn = BaseballPowerup(newPowerupX, newPowerupY)
+        if newPowerupType < 17 then
+            powerupToSpawn = BaseballPowerup(newPowerupX, newPowerupY)
+        elseif newPowerupType < 20 then
+            powerupToSpawn = WhipPowerup(newPowerupX, newPowerupY)
+        else
+            powerupToSpawn = NutmegPowerup(newPowerupX, newPowerupY)
+        end
         for k, powerup in pairs(self.currentPowerups) do
             if not powerup.collected and powerupToSpawn:isCollision(powerup) then
                 spawnIsOkay = false
@@ -103,6 +130,7 @@ function PlayState:render()
     end
 
     love.graphics.print('Score: ' .. tostring(self.score), 8, 8)
+    love.graphics.print('Multiplier: ' .. tostring(self.scoreMultiplier), 8, 24)
 
     self.bill:render()
 end
