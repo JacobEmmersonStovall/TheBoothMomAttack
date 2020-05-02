@@ -58,12 +58,15 @@ function PlayState:update(dt)
             if powerup.type == 'baseball' then
                 self.score = self.score + (self.scoreMultiplier * 100)
                 self.mom.speed = self.mom.speed + 2
+                love.audio.play(gSounds["baseballPickup"])
             elseif powerup.type == 'whip' then
                 self.scoreMultiplier = self.scoreMultiplier * 2
                 self.mom.speedMultiplier = self.mom.speedMultiplier + 0.3
                 self.multiplierTimer = self.multiplierTimer + 10
+                love.audio.play(gSounds["whipPickup"])
             else
                 self.nutmegTimer = self.nutmegTimer + 10
+                love.audio.play(gSounds["nutmegPickup"])
             end
             powerup.collected = true
         end

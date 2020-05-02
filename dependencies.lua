@@ -48,5 +48,8 @@ gImages = {
 
 gSounds = {
     ['playball'] = love.audio.newSource('sound/PlayBall.wav', 'static'),
-    ['loss'] = love.audio.newSource('sound/Loss.wav', 'static')
+    ['loss'] = love.audio.newSource('sound/Loss.wav', 'static'),
+    ['baseballPickup'] = love.audio.newSource('sound/BaseballPickup.wav', 'static'),
+    ['nutmegPickup'] = love.audio.newSource('sound/WhipPickup.wav', 'static'),
+    ['whipPickup'] = love.audio.newSource('sound/NutmegPickup.wav', 'static')
 }
