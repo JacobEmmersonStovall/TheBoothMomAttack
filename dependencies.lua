@@ -5,6 +5,7 @@ require 'lib/Animation'
 
 --Entities
 require 'src/Bill'
+require 'src/BaseballPowerup'
 
 --State Machine
 require 'src/StateMachine'

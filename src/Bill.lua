@@ -60,6 +60,16 @@ function Bill:update(dt)
     end
 end
 
+function Bill:isCollision(target)
+    if(self.x > target.x + target.width or target.x > self.x + self.width) then
+        return false
+    end
+    if(self.y > target.y + target.height or target.y > self.y + self.height) then
+        return false
+    end
+    return true
+end
+
 function Bill:render()
     love.graphics.draw(gImages[self.currentAnimation:getCurrentFrame()], self.x, self.y)
 end
