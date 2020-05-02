@@ -15,6 +15,6 @@ function GameOverState:update(dt)
 end
 
 function GameOverState:render()
-    love.graphics.print('Game Over', 104, 112)
-    love.graphics.print('Score: ' .. tostring(self.score), 104, 128)
+    love.graphics.printf('Game Over', 0, 112, VIRTUAL_WIDTH, "center")
+    love.graphics.printf('Score: ' .. tostring(self.score), 0, 128, VIRTUAL_WIDTH, "center")
 end

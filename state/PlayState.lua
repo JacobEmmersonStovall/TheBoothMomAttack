@@ -28,12 +28,16 @@ function PlayState:init()
             end
         end
     end
+    --music
+    gSounds['backgroundMusic']:setLooping(true)
+    gSounds['backgroundMusic']:play()
 end
 
 function PlayState:update(dt)
 
     --Check game over
     if self.mom:isCollision(self.bill) then
+        gSounds['backgroundMusic']:stop()
         love.audio.play(gSounds["loss"])
         gStateMachine:change('gameover', { ['score'] = self.score })
     end

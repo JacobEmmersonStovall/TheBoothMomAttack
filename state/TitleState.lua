@@ -37,6 +37,7 @@ function TitleState:render()
     if self.showTitle then
         love.graphics.draw(gImages['title'], 16, 16)
     end
-    love.graphics.print('W, A, S, D to move', 80, 200)
-    love.graphics.print('Press enter to start', 80, 220)
+    love.graphics.printf('ESC to quit', 0, 180, VIRTUAL_WIDTH, "center")
+    love.graphics.printf('W, A, S, D to move', 0, 200, VIRTUAL_WIDTH, "center")
+    love.graphics.printf('Press enter to start', 0, 220, VIRTUAL_WIDTH, "center")
 end
